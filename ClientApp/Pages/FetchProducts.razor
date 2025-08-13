@@ -1,0 +1,62 @@
+@page "/fetchproducts"
+
+<h3>Product List</h3>
+
+<ul>
+   @if (products != null)
+    {
+        foreach (var product in products)
+        {
+            <li>@product.Name - $@product.Price</li>
+        }
+    }
+    else
+    {
+        <li>Loading...</li>
+    }
+</ul>
+
+@code {
+    private Product[]? products;
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var apiUrl = "https://localhost:5273/api/products";
+            using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
+            var response = await httpClient.GetAsync(apiUrl);
+            response.EnsureSuccessStatusCode();
+
+            var json = await response.Content.ReadAsStringAsync();
+            var result = System.Text.Json.JsonSerializer.Deserialize<Product[]>(json, new System.Text.Json.JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            });
+
+            products = result ?? Array.Empty<Product>();
+        }
+        catch (TaskCanceledException)
+        {
+            Console.Error.WriteLine("Request timed out.");
+            products = Array.Empty<Product>();
+        }
+        catch (HttpRequestException ex)
+        {
+            Console.Error.WriteLine($"Request error: {ex.Message}");
+            products = Array.Empty<Product>();
+        }
+        catch (Exception ex)
+        {
+            Console.Error.WriteLine($"Unexpected error: {ex.Message}");
+            products = Array.Empty<Product>();
+        }
+    }
+
+    public class Product
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public double Price { get; set; }
+        public int Stock { get; set; }
+    }
+}
