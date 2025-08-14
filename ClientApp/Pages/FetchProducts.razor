@@ -22,7 +22,7 @@
     {
         try
         {
-            var apiUrl = "https://localhost:5273/api/products";
+            var apiUrl = "https://localhost:7281/api/productlist";
             using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
             var response = await httpClient.GetAsync(apiUrl);
             response.EnsureSuccessStatusCode();

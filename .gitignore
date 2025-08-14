@@ -665,3 +665,13 @@ ClientApp/obj/Debug/net9.0/webcil/System.Xml.XmlSerializer.wasm
 ClientApp/obj/Debug/net9.0/webcil/System.Xml.XPath.wasm
 ClientApp/obj/Debug/net9.0/webcil/System.Xml.XPath.XDocument.wasm
 ClientApp/obj/Debug/net9.0/webcil/WindowsBase.wasm
+ServerApp/bin/Debug/net9.0/ServerApp.dll
+ServerApp/bin/Debug/net9.0/ServerApp.pdb
+ServerApp/obj/Debug/net9.0/rjsmcshtml.dswa.cache.json
+ServerApp/obj/Debug/net9.0/rjsmrazor.dswa.cache.json
+ServerApp/obj/Debug/net9.0/ServerApp.AssemblyInfo.cs
+ServerApp/obj/Debug/net9.0/ServerApp.AssemblyInfoInputs.cache
+ServerApp/obj/Debug/net9.0/ServerApp.dll
+ServerApp/obj/Debug/net9.0/ServerApp.pdb
+ServerApp/obj/Debug/net9.0/ref/ServerApp.dll
+ServerApp/obj/Debug/net9.0/refint/ServerApp.dll
