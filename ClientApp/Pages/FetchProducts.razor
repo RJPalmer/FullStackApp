@@ -21,41 +21,68 @@
 </ul>
 
 @code {
+    // Holds the list of products fetched from the API for display in the UI.
     private Product[]? products;
+    private bool isDataLoaded = false;
+
+    /// <summary>
+    /// Called by the framework when the component is initialized.
+    /// Fetches the product list from the backend API and populates the products array.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
+        if (isDataLoaded)
+        {
+            return;
+        }
+
         try
         {
+            // Define the API endpoint for fetching products.
             var apiUrl = "https://localhost:7281/api/productlist";
+
+            // Create an HttpClient with a timeout to fetch the product data.
             using var httpClient = new HttpClient { Timeout = TimeSpan.FromSeconds(10) };
             var response = await httpClient.GetAsync(apiUrl);
-            response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode(); // Throw if not a success status code.
 
+            // Read the JSON response as a string.
             var json = await response.Content.ReadAsStringAsync();
+
+            // Deserialize the JSON string into an array of Product objects.
             var result = System.Text.Json.JsonSerializer.Deserialize<Product[]>(json, new System.Text.Json.JsonSerializerOptions
             {
                 PropertyNameCaseInsensitive = true
             });
 
+            // Assign the fetched products to the products array, or an empty array if null.
             products = result ?? Array.Empty<Product>();
+            isDataLoaded = true;
         }
         catch (TaskCanceledException)
         {
+            // Handle request timeout scenarios.
             Console.Error.WriteLine("Request timed out.");
             products = Array.Empty<Product>();
         }
         catch (HttpRequestException ex)
         {
+            // Handle HTTP-specific errors, such as connection failures or non-success status codes.
             Console.Error.WriteLine($"Request error: {ex.Message}");
             products = Array.Empty<Product>();
         }
         catch (Exception ex)
         {
+            // Handle any other unexpected exceptions.
             Console.Error.WriteLine($"Unexpected error: {ex.Message}");
             products = Array.Empty<Product>();
         }
     }
 
+    /// <summary>
+    /// Represents a product entity with details such as name, price, stock, and category.
+    /// Used for displaying product information in the UI.
+    /// </summary>
     public class Product
     {
         public int Id { get; set; }
@@ -65,6 +92,9 @@
         public Category Category { get; set; }
     }
 
+    /// <summary>
+    /// Represents a product category, used to categorize products.
+    /// </summary>
     public class Category
     {
         public int Id { get; set; }

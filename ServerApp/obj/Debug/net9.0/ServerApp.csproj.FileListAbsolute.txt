@@ -30,3 +30,9 @@
 /Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/obj/Debug/net9.0/ServerApp.pdb
 /Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/obj/Debug/net9.0/ServerApp.genruntimeconfig.cache
 /Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/obj/Debug/net9.0/ref/ServerApp.dll
+/Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/bin/Debug/net9.0/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/bin/Debug/net9.0/Microsoft.Extensions.Caching.Memory.dll
+/Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/bin/Debug/net9.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/bin/Debug/net9.0/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/bin/Debug/net9.0/Microsoft.Extensions.Options.dll
+/Users/robertpalmer/Desktop copy/Coding/CSharp/FullStackApp/ServerApp/bin/Debug/net9.0/Microsoft.Extensions.Primitives.dll

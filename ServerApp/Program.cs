@@ -1,5 +1,11 @@
+using Microsoft.Extensions.Caching.Memory;
+
 var builder = WebApplication.CreateBuilder(args);
-// 1️⃣ Configure CORS policy
+
+// Add services to the container.
+builder.Services.AddMemoryCache();
+
+//Configure CORS policy
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowLocalhostClient", policy =>
@@ -12,22 +18,31 @@ builder.Services.AddCors(options =>
 
 var app = builder.Build();
 
+// Enable CORS
 app.UseCors("AllowLocalhostClient");
 
-app.MapGet("/api/productlist", () =>
 
+// Map API endpoints
+app.MapGet("/api/productlist", (IMemoryCache cache) =>
 {
-
-    return new[]
-
+    // Try to get the cached data
+    if (!cache.TryGetValue("ProductList", out object cachedProducts))
     {
+        // If not cached, create it
+        cachedProducts = new[]
+        {
+            new { Id = 1, Name = "Laptop", Price = 1200.50, Stock = 25, Category = new { Id = 101, Name = "Electronics" } },
+            new { Id = 2, Name = "Headphones", Price = 50.00, Stock = 100, Category = new { Id = 102, Name = "Accessories" } }
+        };
 
-        new { Id = 1, Name = "Laptop", Price = 1200.50, Stock = 25,  Category = new { Id = 101, Name = "Electronics" } },
+        // Set cache options (e.g., expire after 5 minutes)
+        var cacheOptions = new MemoryCacheEntryOptions()
+            .SetSlidingExpiration(TimeSpan.FromMinutes(5));
 
-        new { Id = 2, Name = "Headphones", Price = 50.00, Stock = 100, Category = new { Id = 102, Name = "Accessories" } }
+        cache.Set("ProductList", cachedProducts, cacheOptions);
+    }
 
-    };
-
+    return cachedProducts;
 });
 
 app.Run();
