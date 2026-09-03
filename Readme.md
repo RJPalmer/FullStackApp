@@ -1,5 +1,3 @@
-Here’s a README.md you can use for your FullStackSolution project:
-
 # FullStackSolution
 
 A sample full-stack web application built with **Blazor** (front-end) and **ASP.NET Core Minimal API** (back-end).  
